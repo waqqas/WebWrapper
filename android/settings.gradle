@@ -1,0 +1,3 @@
+rootProject.name = 'WebWrapper'
+
+include ':app'
