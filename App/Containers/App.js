@@ -1,5 +1,5 @@
 import React, {Component} from "react"
-import {Alert, BackHandler, NetInfo, Platform, WebView} from "react-native"
+import {Alert, BackHandler, NetInfo, StatusBar, View, WebView} from "react-native"
 import Uri from 'jsuri'
 
 export default class App extends Component {
@@ -65,10 +65,9 @@ export default class App extends Component {
 
         const uri = new Uri(navState.url)
 
-        if(uri.protocol() === 'http' || uri.protocol() === 'https' ){
+        if (uri.protocol() === 'http' || uri.protocol() === 'https') {
             this.url = navState.url
         }
-
 
         this.setState({
             backButtonEnabled: navState.canGoBack,
@@ -76,11 +75,12 @@ export default class App extends Component {
     };
 
     render() {
-        const styles = Platform.OS === 'ios' ? {marginTop: 20} : ''
-
         return (
-            <WebView style={styles} domStorageEnabled={true} ref='webview'
-                     onNavigationStateChange={this.onNavigationStateChange} source={this.state.source}/>
+            <View style={{flex: 1}}>
+                <StatusBar barStyle='default' hidden/>
+                <WebView domStorageEnabled={true} ref='webview'
+                         onNavigationStateChange={this.onNavigationStateChange} source={this.state.source}/>
+            </View>
         )
     }
 }
